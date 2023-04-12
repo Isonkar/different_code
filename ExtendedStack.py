@@ -40,7 +40,7 @@ class ExtendedStack(list):
     
     # вариант рабочего кода:
     
-    class ExtendedStack(list):
+class ExtendedStack(list):
   
     def sum(self): #сумма
       self.append(self.pop() + self.pop())
