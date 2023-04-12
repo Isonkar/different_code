@@ -35,3 +35,32 @@ class ExtendedStack(list):
       
     def div(self): # деление
       self.append(self.pop() // self.pop()) 
+
+    
+    
+    # вариант рабочего кода:
+    
+    class ExtendedStack(list):
+  
+    def sum(self): #сумма
+      self.append(self.pop() + self.pop())
+      return self  
+      
+    def sub(self): # вычитание
+      self.append(self.pop() - self.pop())
+      return self
+      
+    def mul(self): # умножение
+      self.append(self.pop() * self.pop())
+      return self
+      
+    def div(self): # деление
+      self.append(self.pop() // self.pop())  
+      return self
+
+x = ExtendedStack([1, 2, 3, 4, 5])
+print(x.sum())
+    
+    
+    
+    
