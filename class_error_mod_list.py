@@ -20,11 +20,23 @@ class NonPositiveError(Exception):
   
   
   #вариант второй с функцией super()
-  class NonPositiveError(ArithmeticError):
-    pass
-
+    
+    
+  # создаем новый класс ошибки NonPositiveError
+class NonPositiveError(Exception):
+    pass             # ставим pass т.к. этот класс просто обертка для нашей выдуманной ошибки
+                     # создаем новый класс листа, в который можем добавлять только положительные числа
+                     # наследуем от существующего класса list
 class PositiveList(list):
-    def append(self, x):
-        if x <= 0:
-            raise NonPositiveError
-        super().append(x)
+
+    def append(self, pos_number):         # переопределям метод append, когда вызываем PositiveList.append(x),
+                                          # сработает именно он, а не list.append
+        if pos_number > 0:                # делаем проверку полученного числа
+            super().append(pos_number)    # если pos_number больше нуля, то вызываем обычный append листа с помощью super()
+        else:                             # если мы не прошли проверку
+            raise NonPositiveError(pos_number, "is less than 0!") # выбрасываем наше исключение с помощью raise
+
+            
+            
+            
+            
