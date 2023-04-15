@@ -48,3 +48,28 @@ for key in keys:
         print(simplecrypt.decrypt(key, encrypted).decode('utf8'))
     except simplecrypt.DecryptionException:
         continue
+        
+        
+ #вариант второй
+
+from simplecrypt import decrypt
+
+passwords_list = []  # создаем пустой список для хранения паролей
+with open("passwords.txt") as passwords:
+    for password in passwords:
+        password = password.rstrip()  # считываем фаил построчно и без табуляции
+        passwords_list.append(password)  # добавляем ключь в список
+
+with open("encrypted.bin", "rb") as inp:
+    encrypted = inp.read()  # создаем переменную для хранения зашифрованой информации
+
+
+def decrypt_inf(passw, txt):  # функция принимает 2 объекта - список ключей и зашифорванный текст
+    for p in passw:
+        try:  # если ключь подходит - возвращаем расшифрованный текст в нормальном формате
+            return decrypt(p, txt).decode("utf-8")
+        except:  # если нет - переходим к следующему ключу
+            continue
+
+
+print(decrypt_inf(passwords_list, encrypted))
