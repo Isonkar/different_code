@@ -8,7 +8,7 @@ class DoubleElementListIterator:
     def __next__(self):
         if self.i < len(self.lst):
             self.i += 2
-            return self.lst(self.i - 2), self.lst(self.i - 1)
+            return self.lst[self.i - 2], self.lst[self.i - 1]
         else:
             raise StopIteration
 
@@ -20,3 +20,4 @@ class MyList(list):
 
 for pair in MyList([1, 2, 4, 5, 6, 7]):
     print(pair)
+
