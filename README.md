@@ -3,3 +3,9 @@
 
  15/04/2023 почитать yield - https://habr.com/ru/articles/132554/
 
+Заметки:
+
+*Генераторы
+{ord(x) for x in 'spaam'}    # генерируем set {112, 115, 109, 97}
+{x:ord(x) for x in 'spaam'}  # генерируем dictionary {'s': 115, 'm': 109, 'p': 112, 'a': 97}
+
