@@ -32,3 +32,21 @@ result = [cur_dir for cur_dir, dirs, files in os.walk("main") if any((fl.endswit
 
 with open("py_dirs.txt", "w") as w:
     w.write("\n".join(sorted(result)))
+    
+    
+#вариант три
+# Пример обхода иерархии самого zip файла без распаковывания!!! Оригинальное задание показалась мне нелогичноым
+# зачем распаковывать весь архив лишь для того чтобы узнать есть в нём необходимые файлы или нет? 
+# Логичнее сначала найти в архиве нужные файлы и только потом разпаковать только содержащие их папки!!! Код приведённый ниже как раз выполняет первую часть задачи.
+# В модуле zipfile нету точного аналога os.walk, поэтому пришлось немного поколдовать чтобы не сохранять одни и те же имена папок по нескольку раз:
+
+import zipfile, os
+
+pydirs = list()
+
+with zipfile.ZipFile('main.zip', 'r') as zip:
+    for zip_path in zip.namelist():
+        if  os.path.dirname(zip_path) not in pydirs and os.path.basename(zip_path).endswith('.py'):
+            pydirs.append(os.path.dirname(zip_path))
+
+print('\n'.join(sorted(pydirs)))
