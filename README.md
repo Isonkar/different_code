@@ -10,5 +10,5 @@
  - {x:ord(x) for x in 'spaam'}  # генерируем dictionary {'s': 115, 'm': 109, 'p': 112, 'a': 97}
 
 Если список содержит последовательно пары key value, то так можно преобразовать в словарь:
-d = ['Dota', 'sucks', 'Python', 'rules', 'Saperavi', 'depends']
-dictus = {d[x]: d[x+1] for x in range(0, len(d), 2)}
+ - d = ['Dota', 'sucks', 'Python', 'rules', 'Saperavi', 'depends']
+ - dictus = {d[x]: d[x+1] for x in range(0, len(d), 2)}
