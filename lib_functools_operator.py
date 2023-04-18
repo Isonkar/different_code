@@ -6,7 +6,7 @@ from functools import partial
 x = [('Guido', 'van', 'Rossum'), ('Haskell', 'Curry'), ('John', 'Backus')]
 sort_by_last = partial(list.sort, key=operator.itemgetter(-1))
 print(x) # 1
-sort_by_last(x)
+sort_by_last(x) # данную функцию можно применять к любой коллекции(которую можно отсротировать, сортировка по последнему элементу)
 print(x) # 1
 
 # 1 -> [('Guido', 'van', 'Rossum'), ('Haskell', 'Curry'), ('John', 'Backus')]
