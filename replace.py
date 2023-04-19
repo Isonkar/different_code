@@ -27,11 +27,8 @@ if a not in b:
     while a in s:
         s = s.replace(a, b)
         cnt += 1
-
     print(cnt)
-
 elif a in b and a in s:
     print('Impossible')
-
 else:
     print(cnt)
