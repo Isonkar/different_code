@@ -43,3 +43,21 @@ print(a[0][1])
 import pandas as pd
 doc = pd.read_csv("Crimes.csv")
 print(doc.groupby(['Primary Type']).count())
+
+
+#вариант четыре
+import csv
+
+with open('Crimes.csv')as f:
+    reader = csv.DictReader(f)
+    dic = dict()
+    for i in reader:
+        type = i['Primary Type']
+        d = i['Date']
+        year = d[6:10]
+        if int(year) == 2015:
+            dic[type] = dic.get(type, 0) + 1
+
+    for k,v in dic.items():
+        if v == max(dic.values()):
+            print(k)
