@@ -13,7 +13,7 @@ with open('Crimes.csv') as data:
         if '2015' in row[2]:
             lst_crimes.append(row[5])
 
-print(max(lst_crimes, key=lst_crimes.count))
+print(max(lst_crimes, key=lst_crimes.count))  # параметр key берет елемент, находит количество его совпадение, а далее max выводит максимальное значение
 
 
 #вариант
