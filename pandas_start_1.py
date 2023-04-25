@@ -25,3 +25,6 @@ apples     3
 oranges    0
 Name: Женя, dtype: int64
 '''
+
+df = pd.read_csv('purchases.csv') # чтение csv файла
+df = pd.read_json('purchases.json') # чтение json файла
