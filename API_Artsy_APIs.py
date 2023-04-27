@@ -35,3 +35,63 @@ with open('dataset_24476_4.txt', encoding='utf-8') as data:
         
 for k,v in sorted(result.items()):
     print(f'{v}')
+    
+    
+#вариант два(с классом)
+
+import requests
+
+client_id = "..."
+client_secret = "..."
+path = "dataset_24476_4.txt"
+
+
+class Artist:
+    def __init__(self, name, year):
+        self.name = name
+        self.year = year
+
+
+class Artists:
+    def __init__(self, ids, token):
+        self.ids = ids
+        self.artists = []
+        self.token = token
+
+    def _get_name_and_year(self):
+        header = {"X-Xapp-Token": self.token}
+        for artist_id in self.ids:
+            artist_id = artist_id.strip()
+            url = f"https://api.artsy.net/api/artists/{artist_id}"
+            res = requests.get(url, headers=header)
+            res = res.json()
+            name, year = res["sortable_name"], res["birthday"]
+            self.artists += [Artist(name, year)]
+
+    def sort_artists_by_birthday(self):
+        self._get_name_and_year()
+        self.artists.sort(key=lambda artist: artist.year)
+        for artist in self.artists:
+            print(artist.name)
+
+
+def get_token(id, secret):
+    data = {
+        "client_id": id,
+        "client_secret": secret
+    }
+    r = requests.post("https://api.artsy.net/api/tokens/xapp_token", data)
+    j = r.json()
+    return j["token"]
+
+
+def get_artist_ids(path):
+    with open(path) as f:
+        artist_ids = f.readlines()
+        return artist_ids
+
+
+token = get_token(client_id, client_secret)
+ids = get_artist_ids(path)
+artists = Artists(ids, token)
+artists.sort_artists_by_birthday()
