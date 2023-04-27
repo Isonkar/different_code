@@ -95,3 +95,53 @@ token = get_token(client_id, client_secret)
 ids = get_artist_ids(path)
 artists = Artists(ids, token)
 artists.sort_artists_by_birthday()
+
+
+# вариант три
+
+import requests
+import json
+
+
+class Artist:
+    """
+    Класс, хранящий в себе имя и год рождения художника
+    """
+    def __init__(self, artist_name, artist_birthday):
+        self.artist_name = artist_name
+        self.artist_birthday = artist_birthday
+
+    def __repr__(self):
+        return f"{self.artist_name} : {self.artist_birthday}"
+
+
+client_id = '...'
+client_secret = '...'
+
+# инициируем запрос на получение токена
+r = requests.post("https://api.artsy.net/api/tokens/xapp_token",
+                  data={
+                      "client_id": client_id,
+                      "client_secret": client_secret
+                  })
+
+# разбираем ответ сервера
+j = json.loads(r.text)  # достаем токен
+token = j["token"]  # создаем заголовок, содержащий наш токен
+headers = {"X-Xapp-Token" : token} # инициируем запрос с заголовком
+artist_list = []
+with open("dataset_24476_4.txt", "r") as data:
+    for artist_id in data:
+        artist_id = artist_id.strip()
+        r = requests.get(f"https://api.artsy.net/api/artists/{artist_id}", headers=headers)
+        r.encoding = 'utf-8'  # декодируем 
+        j = r.json()  # разбираем ответ сервера
+        name = j['sortable_name']
+        birthday = int(j['birthday'])
+        artist_list.append(Artist(name, birthday))  # добавляем объект класса в список
+
+
+artist_sorted = sorted(artist_list, key=lambda a: (a.artist_birthday, a.artist_name))
+# сортируем список по году рождения, если год рождения одинаковый - по имени
+for artist in artist_sorted:
+    print(artist.artist_name)
