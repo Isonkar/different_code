@@ -12,4 +12,3 @@ r = requests.post('https://api.artsy.net/api/tokens/xapp_token',
                  })
 j = json.loads(r.text)
 token = j['token']  
-
