@@ -12,3 +12,13 @@ r = requests.post('https://api.artsy.net/api/tokens/xapp_token',
                  })
 j = json.loads(r.text)
 token = j['token']  
+
+# формирвоание запроса/ получение данных
+headers = {'X-Xapp-Token' : token}
+
+with open('dataset_24476_4.txt', encoding='utf-8') as data:
+    for line in data:
+        id_art = line.strip()
+        url_api = f"https://api.artsy.net/api/artists/{id_art}"
+        req = requests.get(url_api, headers=headers).json()
+        print(f"{req['sortable_name']}: {req['birthday']}")
